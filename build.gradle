@@ -1,0 +1,24 @@
+apply from: 'javafx.plugin'
+
+task copyOther(type: Copy) {
+  from 'src/main/java'
+  include '**/*.fxml'
+  include '**/*.png'
+  into 'build/classes/main'
+}
+
+compileJava.doFirst{
+  tasks.clean.execute()
+}
+
+compileJava.doLast {
+  tasks.copyOther.execute()
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile group: 'org.reactfx', name: 'reactfx', version: '1.4.1'
+}

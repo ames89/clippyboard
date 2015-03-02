@@ -1,0 +1,6 @@
+/ui/
+/build/
+/.gradle/
+*.iml
+/gradle-app.setting
+/.idea/
