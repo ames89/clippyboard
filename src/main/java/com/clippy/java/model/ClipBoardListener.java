@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 public class ClipBoardListener extends Thread implements ClipboardOwner {
   Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
 
-
   @Override
   public void run() {
     Transferable trans = sysClip.getContents(this);

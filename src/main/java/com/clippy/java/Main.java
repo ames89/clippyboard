@@ -14,7 +14,6 @@ public class Main extends Application {
     //setUserAgentStylesheet(STYLESHEET_CASPIAN);
     primaryStage.setTitle("Clippyboard");
     primaryStage.setScene(new Scene(root, 350, 600));
-    //primaryStage.setOpacity(0.5);
     primaryStage.show();
   }
 

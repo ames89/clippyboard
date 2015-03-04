@@ -9,40 +9,40 @@
 <?import javafx.scene.layout.*?>
 <TitledPane fx:id="repeatedPane" animated="true" text="20 primeras letras" xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clippy.java.ui.main.partials.repeatedPaneController">
-    <content>
-      <GridPane prefHeight="198.0" prefWidth="354.0">
-        <children>
-          <TextArea fx:id="text" text="hola mundo" GridPane.columnIndex="0" />
-          <VBox alignment="TOP_CENTER" spacing="10" GridPane.columnIndex="1">
-            <children>
-              <ToggleButton fx:id="favorite" mnemonicParsing="false" onAction="#favoriteThis" text="Favorite" wrapText="true">
-                <graphic>
-                  <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                      <Image url="@../star.png" />
-                    </image>
-                  </ImageView>
-                </graphic>
-              </ToggleButton>
-              <Button fx:id="remove" mnemonicParsing="false" text="Delete" wrapText="true">
-                <graphic>
-                  <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                      <Image url="@../cross.png" />
-                    </image>
-                  </ImageView>
-                </graphic>
-              </Button>
-            </children>
-          </VBox>
-        </children>
-        <columnConstraints>
-          <ColumnConstraints/>
-          <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="95.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints fillHeight="true" vgrow="ALWAYS" />
-        </rowConstraints>
-      </GridPane>
-    </content>
+  <content>
+    <GridPane prefHeight="198.0" prefWidth="354.0">
+      <children>
+        <TextArea fx:id="text" text="hola mundo" GridPane.columnIndex="0"/>
+        <VBox alignment="TOP_CENTER" spacing="10" GridPane.columnIndex="1">
+          <children>
+            <ToggleButton fx:id="favorite" mnemonicParsing="false" onAction="#favoriteThis" text="Favorite" wrapText="true">
+              <graphic>
+                <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../star.png"/>
+                  </image>
+                </ImageView>
+              </graphic>
+            </ToggleButton>
+            <Button fx:id="remove" mnemonicParsing="false" text="Delete" wrapText="true">
+              <graphic>
+                <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../cross.png"/>
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </children>
+        </VBox>
+      </children>
+      <columnConstraints>
+        <ColumnConstraints/>
+        <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="95.0"/>
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints fillHeight="true" vgrow="ALWAYS"/>
+      </rowConstraints>
+    </GridPane>
+  </content>
 </TitledPane>

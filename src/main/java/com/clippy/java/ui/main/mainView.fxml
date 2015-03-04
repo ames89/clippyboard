@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clippy.java.ui.main.mainController">
   <children>
     <ToolBar prefHeight="40.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
       <items>
-        <Button mnemonicParsing="false" onAction="#buttonToolBar" text="hola" />
+        <Button mnemonicParsing="false" onAction="#buttonToolBar" text="hola"/>
       </items>
     </ToolBar>
     <Accordion fx:id="parentOfRepeats" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
@@ -20,14 +17,14 @@
           <content>
             <GridPane prefHeight="198.0" prefWidth="354.0">
               <children>
-                <TextArea fx:id="text" text="hola mundo" GridPane.columnIndex="0" />
+                <TextArea fx:id="text" text="hola mundo" GridPane.columnIndex="0"/>
                 <VBox alignment="TOP_CENTER" spacing="10" GridPane.columnIndex="1">
                   <children>
                     <ToggleButton fx:id="favorite" mnemonicParsing="false" onAction="#favoriteThis" text="Favorite" wrapText="true">
                       <graphic>
                         <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
                           <image>
-                            <Image url="@star.png" />
+                            <Image url="@star.png"/>
                           </image>
                         </ImageView>
                       </graphic>
@@ -36,7 +33,7 @@
                       <graphic>
                         <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
                           <image>
-                            <Image url="@cross.png" />
+                            <Image url="@cross.png"/>
                           </image>
                         </ImageView>
                       </graphic>
@@ -45,11 +42,11 @@
                 </VBox>
               </children>
               <columnConstraints>
-                <ColumnConstraints />
-                <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="95.0" />
+                <ColumnConstraints/>
+                <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="95.0"/>
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints fillHeight="true" vgrow="ALWAYS" />
+                <RowConstraints fillHeight="true" vgrow="ALWAYS"/>
               </rowConstraints>
             </GridPane>
           </content>
