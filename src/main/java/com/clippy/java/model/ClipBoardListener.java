@@ -32,7 +32,7 @@ public class ClipBoardListener extends Thread implements ClipboardOwner {
     try {
       process_clipboard(contents, c);
     } catch (Exception ex) {
-      //Logger.getLogger(ClipBoardListener.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(ClipBoardListener.class.getName()).log(Level.SEVERE, null, ex);
     }
     TakeOwnership(contents);
   }
@@ -41,8 +41,7 @@ public class ClipBoardListener extends Thread implements ClipboardOwner {
     sysClip.setContents(t, this);
   }
 
-  public void process_clipboard(Transferable trans, Clipboard c) { //your implementation
-
+  public void process_clipboard(Transferable trans, Clipboard c) {
     try {
       if (trans != null && trans.isDataFlavorSupported(DataFlavor.stringFlavor)) {
         String tempText = (String) trans.getTransferData(DataFlavor.stringFlavor);
@@ -51,5 +50,6 @@ public class ClipBoardListener extends Thread implements ClipboardOwner {
     } catch (Exception e) {
       Logger.getGlobal().log(Level.WARNING, e.getMessage());
     }
+    //TODO crear un evento donde se observen los cambios del clibpoard
   }
 }

@@ -42,20 +42,13 @@ public class mainController {
     });
   }
 
-  /*public void buttonToolBar(ActionEvent event) {
-    //TODO por aca el agregar el nuevo titledpane
-    observableList.add(createTitledPane());
-    parentOfRepeats.getPanes().setAll(observableList);
-  }*/
-
   public TitledPane createTitledPane() {
     FXMLLoader repeatedPane = new FXMLLoader(getClass().getResource("partials/repeatedPane.fxml"));
-    //repeatedPane.setController(new repeatedPaneController("HOLA MUNDO HERMOSO 1234354567677655434543454345454"));
     TitledPane newTitledPane = null;
     try {
       newTitledPane = (TitledPane) repeatedPane.load();
     } catch (IOException e) {
-      Logger.getGlobal().log(Level.WARNING, "no se cargo correctamente el repeatedPane.fxml");
+      Logger.getGlobal().log(Level.SEVERE, "no se cargo correctamente el repeatedPane.fxml");
       e.printStackTrace();
     }
     repeatedPaneController ctrl = (repeatedPaneController) repeatedPane.getController();

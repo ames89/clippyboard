@@ -1,3 +1,7 @@
 http://stackoverflow.com/questions/19588029/customize-listview-in-javafx-with-fxml
 
-http://www.orangeandbronze.com/orange-orchard/blog/2013/09/model-view-controller-mvc-done-right/
+http://www.reactfx.org/javadoc/2.0-M4/index.html?overview-summary.html
+
+http://stackoverflow.com/questions/20321321/how-to-initialize-member-variables-of-a-custom-javafx-controller
+
+http://docs.oracle.com/javase/8/javafx/api/index.html?javafx/beans/value/ObservableValue.html

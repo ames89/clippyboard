@@ -20,4 +20,13 @@ public class repeatedPaneController {
     System.out.println(favorite.isSelected());
   }
 
+  public void setData(String data){
+    textArea.setText(data);
+    repeatedPane.setText(data.substring(0,19));
+  }
+
+  @FXML
+  private void initialize(){
+
+  }
 }
