@@ -7,35 +7,58 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
+import org.reactfx.EventStream;
+import org.reactfx.EventStreams;
+import org.reactfx.Subscription;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class mainController {
 
-  private ArrayList<TitledPane> elementList;
+  private ObservableList<TitledPane> observableList = FXCollections.observableArrayList();
 
   @FXML
   public Accordion parentOfRepeats;
 
+  @FXML
+  public Button buttonToolBar;
+
   public void favoriteThis(ActionEvent event) {
   }
 
-  public void buttonToolBar(ActionEvent event) {
+  /*public mainController() {
+  }*/
+
+  @FXML
+  private void initialize() {
+    EventStream<ActionEvent> btnToolbar = EventStreams.eventsOf(buttonToolBar, ActionEvent.ACTION);
+    Subscription btnSub = btnToolbar.subscribe(event -> {
+      observableList.add(createTitledPane());
+      parentOfRepeats.getPanes().setAll(observableList);
+    });
+  }
+
+  /*public void buttonToolBar(ActionEvent event) {
     //TODO por aca el agregar el nuevo titledpane
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("partials/repeatedPane.fxml"));
-    fxmlLoader.setController(new repeatedPaneController());
+    observableList.add(createTitledPane());
+    parentOfRepeats.getPanes().setAll(observableList);
+  }*/
+
+  public TitledPane createTitledPane() {
+    FXMLLoader repeatedPane = new FXMLLoader(getClass().getResource("partials/repeatedPane.fxml"));
+    //repeatedPane.setController(new repeatedPaneController("HOLA MUNDO HERMOSO 1234354567677655434543454345454"));
+    TitledPane newTitledPane = null;
     try {
-      elementList.add(fxmlLoader.load());
+      newTitledPane = (TitledPane) repeatedPane.load();
     } catch (IOException e) {
       Logger.getGlobal().log(Level.WARNING, "no se cargo correctamente el repeatedPane.fxml");
       e.printStackTrace();
     }
-    ObservableList observableList = FXCollections.observableArrayList();
-    observableList.addAll(elementList);
-    parentOfRepeats.getPanes().addAll(observableList);
+    repeatedPaneController ctrl = (repeatedPaneController) repeatedPane.getController();
+    return newTitledPane;
   }
 }

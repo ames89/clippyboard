@@ -11,7 +11,7 @@ public class repeatedPaneController {
   public TitledPane repeatedPane;
 
   @FXML
-  public TextArea text;
+  public TextArea textArea;
 
   @FXML
   public ToggleButton favorite;
@@ -20,7 +20,4 @@ public class repeatedPaneController {
     System.out.println(favorite.isSelected());
   }
 
-  public repeatedPaneController() {
-
-  }
 }
