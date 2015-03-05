@@ -8,15 +8,19 @@ import javafx.scene.control.ToggleButton;
 
 public class repeatedPaneController {
   @FXML
-  private TitledPane repeatedPane;
+  public TitledPane repeatedPane;
 
   @FXML
-  private TextArea text;
+  public TextArea text;
 
   @FXML
-  private ToggleButton favorite;
+  public ToggleButton favorite;
 
   public void favoriteThis(ActionEvent event) {
     System.out.println(favorite.isSelected());
+  }
+
+  public repeatedPaneController() {
+
   }
 }
