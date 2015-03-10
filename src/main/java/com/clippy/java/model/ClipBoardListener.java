@@ -1,10 +1,8 @@
 package com.clippy.java.model;
 
 import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.ClipboardOwner;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.*;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,7 +11,11 @@ import java.util.logging.Logger;
  */
 
 public class ClipBoardListener extends Thread implements ClipboardOwner {
-  Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
+  private Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
+
+  public ClipBoardListener(Clipboard cb) {
+    this.sysClip = cb;
+  }
 
   @Override
   public void run() {
@@ -51,5 +53,14 @@ public class ClipBoardListener extends Thread implements ClipboardOwner {
       Logger.getGlobal().log(Level.WARNING, e.getMessage());
     }
     //TODO crear un evento donde se observen los cambios del clibpoard
+  }
+
+  public String getContentString() {
+    try {
+      return (String) sysClip.getData(DataFlavor.stringFlavor);
+    } catch (UnsupportedFlavorException | IOException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 }
