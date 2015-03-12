@@ -1,5 +1,9 @@
 package com.clippy.java.model;
 
+import javafx.beans.property.SimpleStringProperty;
+import org.reactfx.EventStream;
+import org.reactfx.EventStreams;
+
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.IOException;
@@ -12,9 +16,20 @@ import java.util.logging.Logger;
 
 public class ClipBoardListener extends Thread implements ClipboardOwner {
   private Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
+  private SimpleStringProperty tempText=new SimpleStringProperty("");
+  public EventStream<String> clipboardStream;
 
   public ClipBoardListener(Clipboard cb) {
     this.sysClip = cb;
+  }
+
+  public ClipBoardListener() {
+    if (clipboardStream == null) {
+      clipboardStream = EventStreams.nonNullValuesOf(tempText);
+    }
+    clipboardStream.subscribe(i->{
+      System.out.println(i);
+    });
   }
 
   @Override
@@ -46,13 +61,11 @@ public class ClipBoardListener extends Thread implements ClipboardOwner {
   public void process_clipboard(Transferable trans, Clipboard c) {
     try {
       if (trans != null && trans.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-        String tempText = (String) trans.getTransferData(DataFlavor.stringFlavor);
-        System.out.println(tempText);
+        tempText.setValue((String) trans.getTransferData(DataFlavor.stringFlavor));
       }
     } catch (Exception e) {
       Logger.getGlobal().log(Level.WARNING, e.getMessage());
     }
-    //TODO crear un evento donde se observen los cambios del clibpoard
   }
 
   public String getContentString() {

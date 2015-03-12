@@ -12,10 +12,7 @@ public class UtilsTest extends TestCase {
 
   @Test
   public void testClipBoardListener() throws Exception {
-    /*Utils.clipBoardListener.run();
-    Clipboard cb = new Utils.clipBoardListener(Clipboard.class);
-    String valCB = cb.getString();
-    assertEquals(valCB, Utils.clipBoardListener.getContentString());*/
-    assertTrue(true);
+    Utils utils = new Utils();
+    assertNotNull("Clipboard listener initialized",utils.clipBoardListener);
   }
 }
