@@ -13,6 +13,6 @@ public class UtilsTest extends TestCase {
   @Test
   public void testClipBoardListener() throws Exception {
     Utils utils = new Utils();
-    assertNotNull("Clipboard listener initialized",utils.clipBoardListener);
+    assertNotNull("Clipboard listener initialized", utils.clipBoardListener);
   }
 }

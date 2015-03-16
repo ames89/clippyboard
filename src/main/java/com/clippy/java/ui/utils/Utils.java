@@ -9,7 +9,7 @@ public class Utils {
 
   /**
    * Variable that listen to the changes in the clipboard
-   * */
+   */
   public static ClipBoardListener clipBoardListener = new ClipBoardListener();
 
 }
