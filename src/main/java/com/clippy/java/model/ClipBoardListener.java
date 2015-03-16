@@ -16,10 +16,11 @@ import java.util.logging.Logger;
 
 public class ClipBoardListener extends Thread implements ClipboardOwner {
   private Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
-  private SimpleStringProperty tempText=new SimpleStringProperty("");
+  private SimpleStringProperty tempText = new SimpleStringProperty("");
   public EventStream<String> clipboardStream;
 
   public ClipBoardListener(Clipboard cb) {
+    this();
     this.sysClip = cb;
   }
 
@@ -27,7 +28,7 @@ public class ClipBoardListener extends Thread implements ClipboardOwner {
     if (clipboardStream == null) {
       clipboardStream = EventStreams.nonNullValuesOf(tempText);
     }
-    clipboardStream.subscribe(i->{
+    clipboardStream.subscribe(i -> {
       System.out.println(i);
     });
   }

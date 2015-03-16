@@ -1,8 +1,6 @@
 package com.clippy.java.ui.utils;
 
 import com.clippy.java.model.ClipBoardListener;
-import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 
 /**
  * Created by angel on 28/02/15.
