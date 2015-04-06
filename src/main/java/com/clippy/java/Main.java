@@ -1,6 +1,6 @@
 package com.clippy.java;
 
-import com.clippy.java.ui.utils.Utils;
+import com.clippy.java.utils.utils.Utils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

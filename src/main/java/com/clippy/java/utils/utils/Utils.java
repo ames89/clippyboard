@@ -1,4 +1,4 @@
-package com.clippy.java.ui.utils;
+package com.clippy.java.utils.utils;
 
 import com.clippy.java.model.ClipBoardListener;
 

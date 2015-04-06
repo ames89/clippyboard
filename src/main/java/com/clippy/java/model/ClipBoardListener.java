@@ -1,5 +1,6 @@
 package com.clippy.java.model;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import org.reactfx.EventStream;
 import org.reactfx.EventStreams;
@@ -28,9 +29,6 @@ public class ClipBoardListener extends Thread implements ClipboardOwner {
     if (clipboardStream == null) {
       clipboardStream = EventStreams.nonNullValuesOf(tempText);
     }
-    clipboardStream.subscribe(i -> {
-      System.out.println(i);
-    });
   }
 
   @Override
@@ -62,7 +60,16 @@ public class ClipBoardListener extends Thread implements ClipboardOwner {
   public void process_clipboard(Transferable trans, Clipboard c) {
     try {
       if (trans != null && trans.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-        tempText.setValue((String) trans.getTransferData(DataFlavor.stringFlavor));
+        String dataClip = (String) trans.getTransferData(DataFlavor.stringFlavor);
+        //necesario para transferir los datos de swing a javafx
+        Platform.runLater(new Runnable() {
+          @Override
+          public void run() {
+            //se pasan los datos de dataclip de awt hacia javafx
+            tempText.setValue(dataClip.trim());
+          }
+        });
+
       }
     } catch (Exception e) {
       Logger.getGlobal().log(Level.WARNING, e.getMessage());
