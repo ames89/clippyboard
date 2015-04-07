@@ -37,30 +37,35 @@ public class repeatedPaneController {
 
     //evento del boton arriba
     Subscription upSubs = EventStreams.eventsOf(upBtn, ActionEvent.ACTION).subscribe(evt -> {
-      ObservableList<TitledPane> listadoDePaneles = ((Accordion) repeatedPane.getParent()).getPanes();
-      //consultamos la posicion del elemento
-      int pos = listadoDePaneles.indexOf(repeatedPane);
-      //extraemos el elemento
-      listadoDePaneles.remove(repeatedPane);
-      //disminuimos la cantidad de uno para pasarlo a la posicion anterior
-      pos--;
-      //colocamos el elemento de nuevo en la nueva posicion
-      listadoDePaneles.add(pos < 0 ? 0 : pos, repeatedPane);
-      repeatedPane.setCollapsible(false);
+      movePane(-1);
     });
 
     //evento del boton abajo
     Subscription downSubs = EventStreams.eventsOf(downBtn, ActionEvent.ACTION).subscribe(evt -> {
-      ObservableList<TitledPane> listadoDePaneles = ((Accordion) repeatedPane.getParent()).getPanes();
-      //consultamos la posicion del elemento
-      int pos = listadoDePaneles.indexOf(repeatedPane);
-      //extraemos el elemento
-      listadoDePaneles.remove(repeatedPane);
-      //aumentamos la cantidad de uno para pasarlo a la siguiente posicion
-      pos++;
-      //colocamos el elemento de nuevo en la nueva posicion
-      listadoDePaneles.add(pos > listadoDePaneles.size() ? listadoDePaneles.size() : pos, repeatedPane);
-      repeatedPane.setCollapsible(false);
+      movePane(1);
     });
+  }
+
+  /**
+   * @param change un valor de 1 si baja en la lista o -1 si sube
+   */
+  private void movePane(int change) {
+    ObservableList<TitledPane> listadoDePaneles = ((Accordion) repeatedPane.getParent()).getPanes();
+    //consultamos la posicion del elemento
+    int pos = listadoDePaneles.indexOf(repeatedPane);
+    //extraemos el elemento
+    listadoDePaneles.remove(repeatedPane);
+    //aumentamos la cantidad de uno para pasarlo a la siguiente posicion
+    pos += change;
+    //colocamos el elemento de nuevo en la nueva posicion
+    if (pos >= 0 && pos < listadoDePaneles.size()) {
+      listadoDePaneles.add(pos, repeatedPane);
+    } else if (pos < 0) {
+      listadoDePaneles.add(pos, repeatedPane);
+    } else {
+      listadoDePaneles.add(listadoDePaneles.size(), repeatedPane);
+    }
+    //colocamos el panel que acabamos de mover como el abierto por defecto
+    repeatedPane.setExpanded(true);
   }
 }
