@@ -3,11 +3,13 @@ package com.clippy.java.ui.main;
 import com.clippy.java.ui.main.partials.TitledPaneWithCtrl;
 import com.clippy.java.ui.main.partials.repeatedPaneController;
 import com.clippy.java.utils.utils.Utils;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.TitledPane;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -29,6 +31,16 @@ public class mainController {
         parentOfRepeats.getPanes().add(createTitledPane(cad));
       }
     });
+
+    parentOfRepeats
+        .getPanes()
+        .addListener(new ListChangeListener<TitledPaneWithCtrl>() {
+          @Override public void onChanged(Change<? extends TitledPaneWithCtrl> c) {
+            if(c.wasPermutated()) {
+              Utils.clipBoardListener.setContentCB(c.getList().get(0).getController().getData());
+            }
+          }
+        });
     /* //acciones del boton "Hola"
     EventStream<ActionEvent> btnToolbar = EventStreams.eventsOf(buttonToolBar, ActionEvent.ACTION);
     Subscription btnSub = btnToolbar.subscribe(ev ->{

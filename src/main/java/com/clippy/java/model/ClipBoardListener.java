@@ -38,26 +38,28 @@ public class ClipBoardListener extends Thread implements ClipboardOwner {
   }
 
   public void lostOwnership(Clipboard c, Transferable t) {
-    try {
-      ClipBoardListener.sleep(250);  //waiting e.g for loading huge elements like word's etc.
-    } catch (Exception e) {
-      Logger.getGlobal().log(Level.WARNING, e.getStackTrace().toString());
-      System.out.println("Exception: " + e);
+    if (!Opciones.disableCBListener) {
+      try {
+        ClipBoardListener.sleep(250);  //waiting e.g for loading huge elements like word's etc.
+      } catch (Exception e) {
+        Logger.getGlobal().log(Level.WARNING, e.getStackTrace().toString());
+        System.out.println("Exception: " + e);
+      }
+      Transferable contents = sysClip.getContents(this);
+      try {
+        process_clipboard(contents, c);
+      } catch (Exception ex) {
+        Logger.getLogger(ClipBoardListener.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      TakeOwnership(contents);
     }
-    Transferable contents = sysClip.getContents(this);
-    try {
-      process_clipboard(contents, c);
-    } catch (Exception ex) {
-      Logger.getLogger(ClipBoardListener.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    TakeOwnership(contents);
   }
 
-  void TakeOwnership(Transferable t) {
+  private void TakeOwnership(Transferable t) {
     sysClip.setContents(t, this);
   }
 
-  public void process_clipboard(Transferable trans, Clipboard c) {
+  private void process_clipboard(Transferable trans, Clipboard c) {
     try {
       if (trans != null && trans.isDataFlavorSupported(DataFlavor.stringFlavor)) {
         String dataClip = (String) trans.getTransferData(DataFlavor.stringFlavor);
@@ -66,10 +68,9 @@ public class ClipBoardListener extends Thread implements ClipboardOwner {
           @Override
           public void run() {
             //se pasan los datos de dataclip de awt hacia javafx
-            tempText.setValue(dataClip.trim());
+            tempText.setValue(Opciones.trimSpaces ? dataClip.trim() : dataClip);
           }
         });
-
       }
     } catch (Exception e) {
       Logger.getGlobal().log(Level.WARNING, e.getMessage());
@@ -83,5 +84,9 @@ public class ClipBoardListener extends Thread implements ClipboardOwner {
       e.printStackTrace();
     }
     return null;
+  }
+
+  public synchronized void setContentCB(String txt) {
+    sysClip.setContents(new StringSelection(txt), this);
   }
 }

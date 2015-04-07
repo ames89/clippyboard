@@ -22,6 +22,10 @@ public class repeatedPaneController {
     repeatedPane.setText(data.substring(0, data.length() < cant ? data.length() : cant));
   }
 
+  public String getData() {
+    return textArea.getText();
+  }
+
   @FXML
   private void initialize() {
 
