@@ -9,7 +9,7 @@ import org.reactfx.Subscription;
 
 public class repeatedPaneController {
   @FXML
-  public TitledPane repeatedPane;
+  public TitledPaneWithCtrl repeatedPane;
   public ToggleButton favoriteBtn;
   public TextArea textArea;
   public Button removeBtn;
@@ -18,7 +18,8 @@ public class repeatedPaneController {
 
   public void setData(String data) {
     textArea.setText(data);
-    repeatedPane.setText(data.substring(0, data.length() < 20 ? data.length() : 20));
+    int cant = 30;
+    repeatedPane.setText(data.substring(0, data.length() < cant ? data.length() : cant));
   }
 
   @FXML
@@ -27,7 +28,18 @@ public class repeatedPaneController {
     //evento del boton de favorito
     Subscription favoriteSubs = EventStreams.eventsOf(favoriteBtn, ActionEvent.ACTION)
         .subscribe(evt -> {
-          //TODO favorito, le da prioridad sobre los demas
+          if (favoriteBtn.isSelected()) {
+            //se le borran a los demas el favorito
+            ObservableList<TitledPane> listadoDePaneles = ((Accordion) repeatedPane.getParent()).getPanes();
+            listadoDePaneles.remove(repeatedPane);
+            listadoDePaneles.add(0, repeatedPane);
+            for (int i = 1; i < listadoDePaneles.size(); i++) {
+              ((TitledPaneWithCtrl) listadoDePaneles.get(i)).getController().favoriteBtn.setSelected(false);
+            }
+            repeatedPane.setExpanded(true);
+            //TODO por aca
+            //TODO favorito, le da prioridad sobre los demas
+          }
         });
 
     //evento del boton de borrado

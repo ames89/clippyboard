@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.clippy.java.ui.main.partials.TitledPaneWithCtrl?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<TitledPane fx:id="repeatedPane" animated="true" text="20 primeras letras" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clippy.java.ui.main.partials.repeatedPaneController">
+<TitledPaneWithCtrl fx:id="repeatedPane" animated="true" text="20 primeras letras" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clippy.java.ui.main.partials.repeatedPaneController">
   <GridPane prefHeight="198.0" prefWidth="354.0">
     <columnConstraints>
       <ColumnConstraints/>
@@ -46,4 +47,4 @@
       </Button>
     </VBox>
   </GridPane>
-</TitledPane>
+</TitledPaneWithCtrl>
