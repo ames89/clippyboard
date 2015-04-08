@@ -1,5 +1,6 @@
 package com.clippy.java.ui.main;
 
+import com.clippy.java.model.Opciones;
 import com.clippy.java.ui.main.partials.TitledPaneWithCtrl;
 import com.clippy.java.ui.main.partials.repeatedPaneController;
 import com.clippy.java.utils.utils.Utils;
@@ -10,6 +11,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import org.reactfx.EventStreams;
+import org.reactfx.Subscription;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -20,12 +26,43 @@ public class mainController {
   @FXML
   public Accordion parentOfRepeats;
   public Button buttonToolBar;
-
-  public void favoriteThis(ActionEvent event) {
-  }
+  public ToggleButton ClipbboardEnabled;
+  public Button cleanAll;
 
   @FXML
   private void initialize() {
+    ClipbboardEnabled.setSelected(!Opciones.disableCBListener);
+    ClipbboardEnabled.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(!Opciones.disableCBListener ? "clipenabled.png" : "clipdisabled.png"))));
+
+    Subscription clipEnablerSubs = EventStreams.eventsOf(ClipbboardEnabled, ActionEvent.ACTION)
+        .subscribe(evt -> {
+          if (ClipbboardEnabled.isSelected()) {
+            Opciones.disableCBListener = false;
+            ClipbboardEnabled.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("clipenabled.png"))));
+          } else {
+            Opciones.disableCBListener = true;
+            ClipbboardEnabled.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("clipdisabled.png"))));
+          }
+        });
+
+    Subscription cleanAllSubs = EventStreams.eventsOf(cleanAll, ActionEvent.ACTION)
+        .subscribe(evt -> {
+          //TODO
+          //
+          /*Alert alert = new Alert(AlertType.CONFIRMATION);
+          alert.setTitle("Confirmation Dialog");
+          alert.setHeaderText("Look, a Confirmation Dialog");
+          alert.setContentText("Are you ok with this?");
+          Optional<ButtonType> result = alert.showAndWait();
+          if (result.get() == ButtonType.OK){
+            // ... user chose OK
+          } else {
+            // ... user chose CANCEL or closed the dialog
+          }*/
+          //
+
+        });
+
     Utils.clipBoardListener.clipboardStream.subscribe(cad -> {
       if (cad.length() != 0) {
         parentOfRepeats.getPanes().add(createTitledPane(cad));

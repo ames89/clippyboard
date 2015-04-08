@@ -1,0 +1,5 @@
+.tooltip{
+     -fx-background-radius: 4 4 4 4;
+     -fx-background-color:  palegoldenrod/*linear-gradient(greenyellow   , limegreen )*/;
+     -fx-text-fill: black;
+}

@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clippy.java.ui.main.mainController">
   <ToolBar prefHeight="40.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-    <Button mnemonicParsing="false" fx:id="buttonToolBar" text="hola"/>
+    <Button fx:id="buttonToolBar" mnemonicParsing="false">
+      <tooltip>
+        <Tooltip text="Exportar los textos a un archivo word"/>
+      </tooltip>
+      <graphic>
+        <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
+          <Image url="@word.png"/>
+        </ImageView>
+      </graphic>
+    </Button>
+    <Separator prefWidth="5"/>
+    <ToggleButton fx:id="ClipbboardEnabled" mnemonicParsing="false" selected="true">
+      <tooltip>
+        <Tooltip text="Activa/Desactiva la funcion de escuchar el Portapapeles"/>
+      </tooltip>
+    </ToggleButton>
+    <Separator prefWidth="5"/>
+    <Button fx:id="cleanAll" mnemonicParsing="false">
+      <tooltip>
+        <Tooltip text="Borra la lista de elementos"/>
+      </tooltip>
+      <graphic>
+        <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
+          <Image url="@clear.png"/>
+        </ImageView>
+      </graphic>
+    </Button>
   </ToolBar>
   <Accordion fx:id="parentOfRepeats" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
     <panes>
-    </panes>
+ </panes>
   </Accordion>
 </VBox>

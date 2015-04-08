@@ -2,8 +2,10 @@ apply from: 'javafx.plugin'
 
 task copyOther(type: Copy) {
   from 'src/main/java'
-  include '**/*.fxml'
-  include '**/*.png'
+  /* include '** /*.fxml'
+  include '** /*.png'
+  include '** /*.css' */
+  exclude '**/*.java'
   into 'build/classes/main'
 }
 

@@ -13,6 +13,7 @@ public class Main extends Application {
     Parent root = FXMLLoader.load(getClass().getResource("ui/main/mainView.fxml"));
     //setUserAgentStylesheet(STYLESHEET_CASPIAN);
     primaryStage.setTitle("Clippyboard");
+    root.getStylesheets().add(getClass().getResource("ui/main/tooltip.css").toExternalForm());
     primaryStage.setScene(new Scene(root, 350, 600));
     primaryStage.show();
   }

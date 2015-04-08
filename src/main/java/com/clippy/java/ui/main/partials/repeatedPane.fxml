@@ -31,14 +31,14 @@
           </graphic>
         </Button>
       </HBox>
-      <ToggleButton fx:id="favoriteBtn" mnemonicParsing="false" text="Favorite" wrapText="true">
+      <ToggleButton fx:id="favoriteBtn" mnemonicParsing="false" text="Favorito" wrapText="true">
         <graphic>
           <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
             <Image url="@star.png"/>
           </ImageView>
         </graphic>
       </ToggleButton>
-      <Button fx:id="removeBtn" mnemonicParsing="false" prefWidth="79.0" text="Delete" wrapText="true">
+      <Button fx:id="removeBtn" mnemonicParsing="false" prefWidth="79.0" text="Borrar" wrapText="true">
         <graphic>
           <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
             <Image url="@cross.png"/>
