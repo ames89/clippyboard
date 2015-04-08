@@ -29,6 +29,7 @@ public class ClipBoardListener extends Thread implements ClipboardOwner {
     if (clipboardStream == null) {
       clipboardStream = EventStreams.nonNullValuesOf(tempText);
     }
+    this.run();
   }
 
   @Override

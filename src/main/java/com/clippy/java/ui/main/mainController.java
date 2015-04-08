@@ -41,7 +41,9 @@ public class mainController {
         .addListener((ListChangeListener<TitledPane>) c -> {
           while (c.next()) {
             if (c.getFrom() == 0) {
-              Utils.clipBoardListener.setContentCB(((TitledPaneWithCtrl) c.getList().get(0)).getController().getData());
+              Utils.clipBoardListener.setContentCB(
+                  ((TitledPaneWithCtrl) c.getList().get(0))
+                      .getController().getData());
             }
           }
         });
