@@ -53,7 +53,7 @@ public class mainController {
           alert.setHeaderText("Confirme que su acción es correcta");
           alert.setContentText("¿Esta seguro de querer borrar el listado de elementos?");
           Optional<ButtonType> result = alert.showAndWait();
-          if (result.get() == ButtonType.OK){
+          if (result.get() == ButtonType.OK) {
             parentOfRepeats.getPanes().clear();
           }
         });
