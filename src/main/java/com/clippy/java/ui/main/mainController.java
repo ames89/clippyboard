@@ -8,16 +8,14 @@ import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
-import javafx.scene.control.TitledPane;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.reactfx.EventStreams;
 import org.reactfx.Subscription;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,22 +43,19 @@ public class mainController {
           }
         });
 
+    /**
+     * la accion del boton clearAll que permite borrar todos los elementos en la lista actual
+     */
     Subscription cleanAllSubs = EventStreams.eventsOf(cleanAll, ActionEvent.ACTION)
         .subscribe(evt -> {
-          //TODO
-          //
-          /*Alert alert = new Alert(AlertType.CONFIRMATION);
-          alert.setTitle("Confirmation Dialog");
-          alert.setHeaderText("Look, a Confirmation Dialog");
-          alert.setContentText("Are you ok with this?");
+          Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+          alert.setTitle("Confirmar opción de borrado");
+          alert.setHeaderText("Confirme que su acción es correcta");
+          alert.setContentText("¿Esta seguro de querer borrar el listado de elementos?");
           Optional<ButtonType> result = alert.showAndWait();
           if (result.get() == ButtonType.OK){
-            // ... user chose OK
-          } else {
-            // ... user chose CANCEL or closed the dialog
-          }*/
-          //
-
+            parentOfRepeats.getPanes().clear();
+          }
         });
 
     Utils.clipBoardListener.clipboardStream.subscribe(cad -> {
