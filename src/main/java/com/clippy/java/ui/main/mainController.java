@@ -32,15 +32,20 @@ public class mainController {
       }
     });
 
+    /**
+     * evento de cambio en el listado de objetos, se evalua el primero, si cambia, se sustituye el contenido del
+     * portapapeles por el nuevo objeto en la posicion 0
+     */
     parentOfRepeats
         .getPanes()
-        .addListener(new ListChangeListener<TitledPaneWithCtrl>() {
-          @Override public void onChanged(Change<? extends TitledPaneWithCtrl> c) {
-            if(c.wasPermutated()) {
-              Utils.clipBoardListener.setContentCB(c.getList().get(0).getController().getData());
+        .addListener((ListChangeListener<TitledPane>) c -> {
+          while (c.next()) {
+            if (c.getFrom() == 0) {
+              Utils.clipBoardListener.setContentCB(((TitledPaneWithCtrl) c.getList().get(0)).getController().getData());
             }
           }
         });
+
     /* //acciones del boton "Hola"
     EventStream<ActionEvent> btnToolbar = EventStreams.eventsOf(buttonToolBar, ActionEvent.ACTION);
     Subscription btnSub = btnToolbar.subscribe(ev ->{

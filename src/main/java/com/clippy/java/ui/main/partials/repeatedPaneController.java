@@ -41,8 +41,6 @@ public class repeatedPaneController {
               ((TitledPaneWithCtrl) listadoDePaneles.get(i)).getController().favoriteBtn.setSelected(false);
             }
             repeatedPane.setExpanded(true);
-            //TODO por aca
-            //TODO favorito, le da prioridad sobre los demas
           }
         });
 
