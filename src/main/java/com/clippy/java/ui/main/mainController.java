@@ -1,6 +1,7 @@
 package com.clippy.java.ui.main;
 
 import com.clippy.java.model.Opciones;
+import com.clippy.java.model.WordManipulator;
 import com.clippy.java.ui.main.partials.TitledPaneWithCtrl;
 import com.clippy.java.ui.main.partials.repeatedPaneController;
 import com.clippy.java.utils.utils.Utils;
@@ -56,6 +57,16 @@ public class mainController {
           if (result.get() == ButtonType.OK) {
             parentOfRepeats.getPanes().clear();
           }
+        });
+
+    /**
+     * la accion del boton buttonToolBar que permite exportar a word todos los elementos
+     * en la lista actual
+     */
+    Subscription buttonToolBarSubs = EventStreams.eventsOf(buttonToolBar, ActionEvent.ACTION)
+        .subscribe(evt -> {
+          WordManipulator wm=new WordManipulator();
+          wm.addItems(parentOfRepeats.getPanes());
         });
 
     Utils.clipBoardListener.clipboardStream.subscribe(cad -> {

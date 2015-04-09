@@ -23,6 +23,6 @@ repositories {
 
 dependencies {
   compile 'org.reactfx:reactfx:2.0-M4'
-  compile 'org.docx4j:docx4j:3.2.0'
+  compile 'org.docx4j:docx4j:3.2.1'
   testCompile 'junit:junit:4.12'
 }
