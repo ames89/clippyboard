@@ -1,5 +1,6 @@
-package com.clippy.java.ui.main.partials;
+package com.clippy.java.utils.utils;
 
+import com.clippy.java.ui.main.partials.repeatedPaneController;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
 

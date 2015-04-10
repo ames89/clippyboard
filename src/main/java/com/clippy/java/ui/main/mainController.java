@@ -65,7 +65,7 @@ public class mainController {
      */
     Subscription buttonToolBarSubs = EventStreams.eventsOf(buttonToolBar, ActionEvent.ACTION)
         .subscribe(evt -> {
-          WordManipulator wm=new WordManipulator();
+          WordManipulator wm = new WordManipulator();
           wm.addItems(parentOfRepeats.getPanes());
         });
 
@@ -83,7 +83,7 @@ public class mainController {
         .getPanes()
         .addListener((ListChangeListener<TitledPane>) c -> {
           while (c.next()) {
-            if (c.getFrom() == 0) {
+            if (c.getFrom() == 0&& !parentOfRepeats.getPanes().isEmpty()) {
               Utils.clipBoardListener.setContentCB(
                   ((TitledPaneWithCtrl) c.getList().get(0))
                       .getController().getData());

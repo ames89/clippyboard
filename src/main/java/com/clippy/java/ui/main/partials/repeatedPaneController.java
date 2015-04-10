@@ -7,6 +7,9 @@ import javafx.scene.control.*;
 import org.reactfx.EventStreams;
 import org.reactfx.Subscription;
 
+import java.time.Duration;
+import java.util.Optional;
+
 public class repeatedPaneController {
   @FXML
   public TitledPaneWithCtrl repeatedPane;
@@ -15,10 +18,10 @@ public class repeatedPaneController {
   public Button removeBtn;
   public Button upBtn;
   public Button downBtn;
+  private int cant = 30;//cantidad de texto en el titulo
 
   public void setData(String data) {
     textArea.setText(data);
-    int cant = 30;
     repeatedPane.setText(data.substring(0, data.length() < cant ? data.length() : cant));
   }
 
@@ -46,7 +49,25 @@ public class repeatedPaneController {
 
     //evento del boton de borrado
     Subscription removeSubs = EventStreams.eventsOf(removeBtn, ActionEvent.ACTION).subscribe(evt -> {
-      ((Accordion) repeatedPane.getParent()).getPanes().remove(repeatedPane);
+      boolean borrar = false;
+      if (favoriteBtn.isSelected()) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar opción de borrado");
+        alert.setHeaderText("¿Está seguro de querer borrar este texto?");
+        alert.setContentText("Dicho texto ha sido seleccionado como favorito, por ello se le solicita confirme su borrado");
+        Optional<ButtonType> result = alert.showAndWait();
+        borrar = (result.get() == ButtonType.OK);
+      } else {
+        borrar = true;
+      }
+      if (borrar) {
+        ObservableList<TitledPane> panels = ((Accordion) repeatedPane.getParent()).getPanes();
+        int pos = panels.indexOf(repeatedPane);
+        panels.remove(repeatedPane);
+        if (!panels.isEmpty()) {
+          panels.get(pos < panels.size() ? pos : panels.size() - 1).setExpanded(true);
+        }
+      }
     });
 
     //evento del boton arriba
@@ -57,6 +78,14 @@ public class repeatedPaneController {
     //evento del boton abajo
     Subscription downSubs = EventStreams.eventsOf(downBtn, ActionEvent.ACTION).subscribe(evt -> {
       movePane(1);
+    });
+
+    //eventos de cambio en el texto
+    Subscription inputTextAreaSubs = EventStreams.changesOf(textArea.getParagraphs()).reduceSuccessions((oldVal, newVal) -> newVal, Duration.ofMillis(100)).subscribe(evt -> {
+      if (evt.next() && evt.wasAdded()) {
+        String data = textArea.getText();
+        repeatedPane.setText(data.substring(0, data.length() < cant ? data.length() : cant));
+      }
     });
   }
 

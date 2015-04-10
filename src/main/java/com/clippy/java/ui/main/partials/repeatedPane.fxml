@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.clippy.java.ui.main.partials.TitledPaneWithCtrl?>
+<?import com.clippy.java.utils.utils.TitledPaneWithCtrl?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>

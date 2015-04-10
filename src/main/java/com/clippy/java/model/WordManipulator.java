@@ -8,7 +8,8 @@ import org.docx4j.openpackaging.exceptions.InvalidFormatException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,10 +57,16 @@ public class WordManipulator {
     saveFile();
   }
 
-  public void saveFile(){
-    FileChooser fc = new FileChooser();
-    fc.setInitialFileName(new Date().toString());
+  public void saveFile() {
+    FileChooser fc = new FileChooser();//selector de archivos
+    //formateador del nombre de archivo
+    DateTimeFormatter format = DateTimeFormatter.ofPattern("uuuuMMddHHmmss");
+    //agregar el nombre del archivo
+    fc.setInitialFileName(ZonedDateTime.now().format(format));
+    //agregar el tipo de archivo
+    fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("docx"));
     try {
+      //guardar el word en el dialogo de archivo
       wordMLPackage.save(fc.showSaveDialog(null));
     } catch (Exception e) {
       Logger.getGlobal().log(Level.SEVERE, e.getMessage() + "\n" + e.getStackTrace());

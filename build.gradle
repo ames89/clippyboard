@@ -9,6 +9,8 @@ task copyOther(type: Copy) {
   into 'build/classes/main'
 }
 
+compileJava.options.encoding = 'UTF-8'
+
 compileJava.doFirst {
   tasks.clean.execute()
 }
