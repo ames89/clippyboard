@@ -1,0 +1,2 @@
+-multithread en el almacenamiento del word
+-split los CBO (ClipBoard Object) con 3 o mas saltos de linea entre textos (hacerlo customizable)
