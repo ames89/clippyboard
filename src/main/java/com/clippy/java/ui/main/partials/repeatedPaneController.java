@@ -1,5 +1,6 @@
 package com.clippy.java.ui.main.partials;
 
+import com.clippy.java.utils.utils.TitledPaneWithCtrl;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

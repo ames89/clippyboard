@@ -2,8 +2,8 @@ package com.clippy.java.ui.main;
 
 import com.clippy.java.model.Opciones;
 import com.clippy.java.model.WordManipulator;
-import com.clippy.java.ui.main.partials.TitledPaneWithCtrl;
 import com.clippy.java.ui.main.partials.repeatedPaneController;
+import com.clippy.java.utils.utils.TitledPaneWithCtrl;
 import com.clippy.java.utils.utils.Utils;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
@@ -24,7 +24,7 @@ public class mainController {
 
   @FXML
   public Accordion parentOfRepeats;
-  public Button buttonToolBar;
+  public Button exportWordBtn;
   public ToggleButton ClipbboardEnabled;
   public Button cleanAll;
 
@@ -60,10 +60,10 @@ public class mainController {
         });
 
     /**
-     * la accion del boton buttonToolBar que permite exportar a word todos los elementos
+     * la accion del boton exportWordBtn que permite exportar a word todos los elementos
      * en la lista actual
      */
-    Subscription buttonToolBarSubs = EventStreams.eventsOf(buttonToolBar, ActionEvent.ACTION)
+    Subscription buttonToolBarSubs = EventStreams.eventsOf(exportWordBtn, ActionEvent.ACTION)
         .subscribe(evt -> {
           WordManipulator wm = new WordManipulator();
           wm.addItems(parentOfRepeats.getPanes());
@@ -92,7 +92,7 @@ public class mainController {
         });
 
     /* //acciones del boton "Hola"
-    EventStream<ActionEvent> btnToolbar = EventStreams.eventsOf(buttonToolBar, ActionEvent.ACTION);
+    EventStream<ActionEvent> btnToolbar = EventStreams.eventsOf(exportWordBtn, ActionEvent.ACTION);
     Subscription btnSub = btnToolbar.subscribe(ev ->{
       observableList.add(createTitledPane("hola mundo"));//lista de elementos, se le agrega un TitledPane
       parentOfRepeats.getPanes().setAll(observableList);//

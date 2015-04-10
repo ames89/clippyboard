@@ -6,7 +6,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clippy.java.ui.main.mainController">
   <ToolBar prefHeight="40.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-    <Button fx:id="buttonToolBar" mnemonicParsing="false">
+    <Button fx:id="exportWordBtn" mnemonicParsing="false">
       <tooltip>
         <Tooltip text="Exportar los textos a un archivo word"/>
       </tooltip>

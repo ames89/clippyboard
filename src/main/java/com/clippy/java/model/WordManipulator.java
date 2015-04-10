@@ -1,6 +1,6 @@
 package com.clippy.java.model;
 
-import com.clippy.java.ui.main.partials.TitledPaneWithCtrl;
+import com.clippy.java.utils.utils.TitledPaneWithCtrl;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TitledPane;
 import javafx.stage.FileChooser;
@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by RHO on 08/04/2015.
+ * Created by Angel on 08/04/2015.
  */
 public class WordManipulator {
   private WordprocessingMLPackage wordMLPackage;
@@ -64,7 +64,7 @@ public class WordManipulator {
     //agregar el nombre del archivo
     fc.setInitialFileName(ZonedDateTime.now().format(format));
     //agregar el tipo de archivo
-    fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("docx"));
+    fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Documento Word", "*.docx"));
     try {
       //guardar el word en el dialogo de archivo
       wordMLPackage.save(fc.showSaveDialog(null));
