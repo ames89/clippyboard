@@ -83,7 +83,7 @@ public class mainController {
         .getPanes()
         .addListener((ListChangeListener<TitledPane>) c -> {
           while (c.next()) {
-            if (c.getFrom() == 0&& !parentOfRepeats.getPanes().isEmpty()) {
+            if (c.getFrom() == 0 && !parentOfRepeats.getPanes().isEmpty()) {
               Utils.clipBoardListener.setContentCB(
                   ((TitledPaneWithCtrl) c.getList().get(0))
                       .getController().getData());
