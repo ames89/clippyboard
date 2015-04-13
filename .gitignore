@@ -4,3 +4,4 @@
 *.iml
 /gradle-app.setting
 /.idea/
+/clippy.properties

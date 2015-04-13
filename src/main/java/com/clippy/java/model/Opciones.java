@@ -2,48 +2,48 @@ package com.clippy.java.model;
 
 import java.io.*;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- * Created by Angel on 07/04/2015.
+ * Class that contains static values for configurable Options in the Program
  */
 public class Opciones {
   public static boolean trimSpaces = true;
   public static boolean disableCBListener = false;
+  public static int jumpsSplitLine = 4;
 
-  public void loadParams() {
-    Properties props = new Properties();
-    InputStream is = null;
-    // First try loading from the current directory
+  public static void loadParams() {
+    Properties prop = new Properties();
+    InputStream input = null;
     try {
-      File f = new File("clippy.xml");
-      is = new FileInputStream(f);
-    } catch (Exception e) {
-      is = null;
-    }
-    try {
-      if (is == null) {
-        // Try loading from classpath
-        is = getClass().getResourceAsStream("clippy.xml");
+      input = new FileInputStream("clippy.properties");
+      // load a properties file
+      prop.load(input);
+      trimSpaces = Boolean.parseBoolean(prop.getProperty("trimSpaces", "true"));
+      disableCBListener = Boolean.parseBoolean(prop.getProperty("disableCBListener", "false"));
+      jumpsSplitLine = Integer.parseInt(prop.getProperty("jumpsSplitLine", "4"));
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    } finally {
+      if (input != null) {
+        try {
+          input.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
       }
-      // Try loading properties from the file (if found)
-      props.load(is);
-    } catch (Exception e) {
-      Logger.getGlobal().log(Level.SEVERE, e.toString());
     }
-    trimSpaces = Boolean.getBoolean(props.getProperty("trimSpaces", "true"));
-    disableCBListener = Boolean.getBoolean(props.getProperty("disableCBListener", "false"));
   }
 
-  public void saveParamChanges() {
+  public static void saveParamChanges() {
     try {
       Properties props = new Properties();
+      //opciones
       props.setProperty("trimSpaces", "" + trimSpaces);
       props.setProperty("disableCBListener", "" + disableCBListener);
-      File f = new File("clippy.properties");
-      OutputStream out = new FileOutputStream(f);
-      props.store(out,"");
+      props.setProperty("jumpsSplitLine", "" + jumpsSplitLine);
+      //fin opciones
+      OutputStream out = new FileOutputStream(new File("clippy.properties"));
+      props.store(out, "");
     } catch (Exception e) {
       e.printStackTrace();
     }

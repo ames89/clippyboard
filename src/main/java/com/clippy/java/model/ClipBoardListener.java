@@ -41,7 +41,7 @@ public class ClipBoardListener extends Thread implements ClipboardOwner {
   public void lostOwnership(Clipboard c, Transferable t) {
     if (!Opciones.disableCBListener) {
       try {
-        ClipBoardListener.sleep(200);  //waiting e.g for loading huge elements like word's etc.
+        ClipBoardListener.sleep(175);  //waiting e.g for loading huge elements like word's etc.
       } catch (Exception e) {
         Logger.getGlobal().log(Level.WARNING, e.getStackTrace().toString());
         System.out.println("Exception: " + e);

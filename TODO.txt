@@ -1,3 +1,3 @@
--multithread en el almacenamiento del word
--split los CBO (ClipBoard Object) con 3 o mas saltos de linea entre textos (hacerlo customizable)
--guardar y cargar cambios en el sistema
+-scrollbar en el listado de CBOs (ClibBoard Object)
+-Botones para cada script//genial asi los actualizo cuando sea necesario
+-multithread en el almacenamiento del word // por lo visto la segunda vez actualiza muy rapido

@@ -50,7 +50,7 @@ public class WordManipulator {
     MainDocumentPart mdp = wordMLPackage.getMainDocumentPart();
     for (TitledPane tp : l) {
       TitledPaneWithCtrl tpCtrl = (TitledPaneWithCtrl) tp;
-      for (int i = 0; i < 3; i++)
+      for (int i = 0; i < Opciones.jumpsSplitLine; i++)
         mdp.addParagraphOfText("");
       mdp.addParagraphOfText(tpCtrl.getController().getData());
     }

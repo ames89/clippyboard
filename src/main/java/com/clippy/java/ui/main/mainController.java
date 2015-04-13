@@ -70,9 +70,15 @@ public class mainController {
           wm.addItems(parentOfRepeats.getPanes());
         });
 
+    /**
+     * Subscripcion al listener del clipboard
+     */
     Utils.clipBoardListener.clipboardStream.subscribe(cad -> {
-      if (cad.length() != 0) {
-        parentOfRepeats.getPanes().add(createTitledPane(cad));
+      if (!cad.isEmpty()) {
+        for (String porcion : cad.split("(\\n|\\t){" + Opciones.jumpsSplitLine + ",}")) {
+          if (!porcion.isEmpty())
+            parentOfRepeats.getPanes().add(createTitledPane(porcion));
+        }
       }
     });
 
