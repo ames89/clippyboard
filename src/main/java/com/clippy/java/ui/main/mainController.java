@@ -16,7 +16,6 @@ import org.reactfx.EventStreams;
 import org.reactfx.Subscription;
 
 import java.io.IOException;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,11 +51,13 @@ public class mainController {
           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
           alert.setTitle("Confirmar opción de borrado");
           alert.setHeaderText("Confirme que su acción es correcta");
-          alert.setContentText("¿Esta seguro de querer borrar el listado de elementos?");
-          Optional<ButtonType> result = alert.showAndWait();
-          if (result.get() == ButtonType.OK) {
-            parentOfRepeats.getPanes().clear();
-          }
+          alert.setContentText("¿Esta seguro de querer borrar\n" +
+              "el listado de elementos?");
+          //acciones en formato lambda
+          alert
+              .showAndWait()//muestra el dialogo y espera respuesta
+              .filter(resul -> resul == ButtonType.OK)//filtra que el valor sea OK
+              .ifPresent(resp -> parentOfRepeats.getPanes().clear());//realiza la accion
         });
 
     /**

@@ -28,7 +28,7 @@ public class Opciones {
         is = getClass().getResourceAsStream("clippy.xml");
       }
       // Try loading properties from the file (if found)
-      props.loadFromXML(is);
+      props.load(is);
     } catch (Exception e) {
       Logger.getGlobal().log(Level.SEVERE, e.toString());
     }
@@ -36,14 +36,14 @@ public class Opciones {
     disableCBListener = Boolean.getBoolean(props.getProperty("disableCBListener", "false"));
   }
 
-  public void saveParamChangesAsXML() {
+  public void saveParamChanges() {
     try {
       Properties props = new Properties();
       props.setProperty("trimSpaces", "" + trimSpaces);
       props.setProperty("disableCBListener", "" + disableCBListener);
-      File f = new File("clippy.xml");
+      File f = new File("clippy.properties");
       OutputStream out = new FileOutputStream(f);
-      props.storeToXML(out, "", "UTF-8");
+      props.store(out,"");
     } catch (Exception e) {
       e.printStackTrace();
     }
