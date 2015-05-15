@@ -5,8 +5,26 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import com.clippy.java.utils.utils.ButtonJs?>
+<?import javafx.scene.layout.HBox?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clippy.java.ui.main.mainController">
-  <ToolBar prefHeight="40.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+  <ToolBar fx:id="copyButtonList" prefHeight="40.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+    <ToggleButton fx:id="ClipbboardEnabled" mnemonicParsing="false" selected="true">
+      <tooltip>
+        <Tooltip text="Activa/Desactiva la funcion de escuchar el Portapapeles"/>
+      </tooltip>
+    </ToggleButton>
+    <Button fx:id="cleanAll" mnemonicParsing="false">
+      <tooltip>
+        <Tooltip text="Borra la lista de elementos"/>
+      </tooltip>
+      <graphic>
+        <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
+          <Image url="@clear.png"/>
+        </ImageView>
+      </graphic>
+    </Button>
+    <Separator prefWidth="5"/>
     <Button fx:id="exportWordBtn" mnemonicParsing="false">
       <tooltip>
         <Tooltip text="Exportar los textos a un archivo word"/>
@@ -18,22 +36,6 @@
       </graphic>
     </Button>
     <Separator prefWidth="5"/>
-    <ToggleButton fx:id="ClipbboardEnabled" mnemonicParsing="false" selected="true">
-      <tooltip>
-        <Tooltip text="Activa/Desactiva la funcion de escuchar el Portapapeles"/>
-      </tooltip>
-    </ToggleButton>
-    <Separator prefWidth="5"/>
-    <Button fx:id="cleanAll" mnemonicParsing="false">
-      <tooltip>
-        <Tooltip text="Borra la lista de elementos"/>
-      </tooltip>
-      <graphic>
-        <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
-          <Image url="@clear.png"/>
-        </ImageView>
-      </graphic>
-    </Button>
   </ToolBar>
   <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
     <Accordion fx:id="parentOfRepeats">

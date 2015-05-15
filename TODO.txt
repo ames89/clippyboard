@@ -1,3 +1,1 @@
--scrollbar en el listado de CBOs (ClibBoard Object)
 -Botones para cada script//genial asi los actualizo cuando sea necesario
--multithread en el almacenamiento del word // por lo visto la segunda vez actualiza muy rapido

@@ -3,6 +3,7 @@ package com.clippy.java.ui.main;
 import com.clippy.java.model.Opciones;
 import com.clippy.java.model.WordManipulator;
 import com.clippy.java.ui.main.partials.repeatedPaneController;
+import com.clippy.java.utils.utils.ButtonJs;
 import com.clippy.java.utils.utils.TitledPaneWithCtrl;
 import com.clippy.java.utils.utils.Utils;
 import javafx.collections.ListChangeListener;
@@ -15,7 +16,10 @@ import javafx.scene.image.ImageView;
 import org.reactfx.EventStreams;
 import org.reactfx.Subscription;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,12 +30,19 @@ public class mainController {
   public Button exportWordBtn;
   public ToggleButton ClipbboardEnabled;
   public Button cleanAll;
+  public ToolBar copyButtonList;
 
+  /**
+   * Metodo que se ejecuta para inicializar la vista principal
+   */
   @FXML
   private void initialize() {
     ClipbboardEnabled.setSelected(!Opciones.disableCBListener);
     ClipbboardEnabled.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(!Opciones.disableCBListener ? "clipenabled.png" : "clipdisabled.png"))));
 
+    /**
+     * Boton para activar/desactivar el clipboard
+     * */
     Subscription clipEnablerSubs = EventStreams.eventsOf(ClipbboardEnabled, ActionEvent.ACTION)
         .subscribe(evt -> {
           if (ClipbboardEnabled.isSelected()) {
@@ -50,9 +61,8 @@ public class mainController {
         .subscribe(evt -> {
           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
           alert.setTitle("Confirmar opción de borrado");
-          alert.setHeaderText("Confirme que su acción es correcta");
-          alert.setContentText("¿Esta seguro de querer borrar\n" +
-              "el listado de elementos?");
+          alert.setHeaderText("¿Está seguro de querer borrar el listado de elementos?");
+          alert.setContentText("No se podrá deshacer la acción");
           //acciones en formato lambda
           alert
               .showAndWait()//muestra el dialogo y espera respuesta
@@ -82,6 +92,25 @@ public class mainController {
       }
     });
 
+    try{//the scope of the javascript buttons
+      //we are instantiating the list that will contains the javascript files
+      ArrayList<File> javascripts = new ArrayList<>();
+      //here we are joining them on the "javascript" list
+      javascripts.addAll(Arrays.asList((new File("./down/")).listFiles((pathname) -> {
+        //al files that ends in js
+        return pathname.getName().endsWith("js");
+      })));
+      //now for each file we are going to add them
+      javascripts.forEach(file -> {
+        ButtonJs btn = new ButtonJs();
+        btn.assingFile(file.getPath());
+        btn.setText(file.getName());
+        copyButtonList.getItems().add(btn);
+      });
+    }catch (Exception e){
+      Logger.getGlobal().log(Level.INFO,"No existen archivos o carpeta ./down o los archivos no son .js");
+    }
+
     /**
      * evento de cambio en el listado de objetos, se evalua el primero, si cambia, se sustituye el contenido del
      * portapapeles por el nuevo objeto en la posicion 0
@@ -97,13 +126,6 @@ public class mainController {
             }
           }
         });
-
-    /* //acciones del boton "Hola"
-    EventStream<ActionEvent> btnToolbar = EventStreams.eventsOf(exportWordBtn, ActionEvent.ACTION);
-    Subscription btnSub = btnToolbar.subscribe(ev ->{
-      observableList.add(createTitledPane("hola mundo"));//lista de elementos, se le agrega un TitledPane
-      parentOfRepeats.getPanes().setAll(observableList);//
-    });*/
   }
 
   public TitledPaneWithCtrl createTitledPane(String cad) {
