@@ -1,10 +1,14 @@
 package com.clippy.java.ui.main.partials;
 
 import com.clippy.java.utils.utils.TitledPaneWithCtrl;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.apache.poi.ss.formula.functions.T;
 import org.reactfx.EventStreams;
 import org.reactfx.Subscription;
 
@@ -32,6 +36,9 @@ public class repeatedPaneController {
 
   @FXML
   private void initialize() {
+
+    //evento de la apertura/cierre del panel
+    Subscription expandedElement=EventStreams.valuesOf((ObservableBooleanValue) new SimpleBooleanProperty(repeatedPane.isExpanded()));
 
     //evento del boton de favorito
     Subscription favoriteSubs = EventStreams.eventsOf(favoriteBtn, ActionEvent.ACTION)
