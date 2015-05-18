@@ -6,7 +6,6 @@ import com.clippy.java.ui.main.partials.repeatedPaneController;
 import com.clippy.java.utils.utils.ButtonJs;
 import com.clippy.java.utils.utils.TitledPaneWithCtrl;
 import com.clippy.java.utils.utils.Utils;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -92,7 +91,7 @@ public class mainController {
       }
     });
 
-    try{//the scope of the javascript buttons
+    try {//the scope of the javascript buttons
       //we are instantiating the list that will contains the javascript files
       ArrayList<File> javascripts = new ArrayList<>();
       //here we are joining them on the "javascript" list
@@ -107,15 +106,16 @@ public class mainController {
         btn.setText(file.getName());
         copyButtonList.getItems().add(btn);
       });
-    }catch (Exception e){
-      Logger.getGlobal().log(Level.INFO,"No existen archivos o carpeta ./down o los archivos no son .js");
+    } catch (Exception e) {
+      Logger.getGlobal().log(Level.INFO, "No existen archivos o carpeta ./down o los archivos no son .js");
     }
 
     /**
+     * @deprecated en funcion de la apertura de un titledpane, al abrirlo pasa a ser el que se llamara en el clipboard
      * evento de cambio en el listado de objetos, se evalua el primero, si cambia, se sustituye el contenido del
      * portapapeles por el nuevo objeto en la posicion 0
      */
-    parentOfRepeats
+    /*parentOfRepeats
         .getPanes()
         .addListener((ListChangeListener<TitledPane>) c -> {
           while (c.next()) {
@@ -125,7 +125,7 @@ public class mainController {
                       .getController().getData());
             }
           }
-        });
+        });*/
   }
 
   public TitledPaneWithCtrl createTitledPane(String cad) {
