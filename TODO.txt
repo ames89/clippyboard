@@ -1,1 +1,2 @@
--Botones para cada script//genial asi los actualizo cuando sea necesario
+-Agregar buscador
+-agregar notificaciones de cuando se agregue un nuevo elemento al listado de elementos
