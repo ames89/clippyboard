@@ -4,12 +4,20 @@ import com.clippy.java.utils.utils.TitledPaneWithCtrl;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TitledPane;
 import javafx.stage.FileChooser;
-import org.docx4j.openpackaging.exceptions.InvalidFormatException;
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.usermodel.Paragraph;
+import org.apache.poi.hwpf.usermodel.ParagraphProperties;
+import org.apache.poi.hwpf.usermodel.Range;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,26 +26,7 @@ import java.util.logging.Logger;
  */
 public class WordManipulator {
   private WordprocessingMLPackage wordMLPackage;
-  private String nameFile;
-
-  public WordManipulator() {
-    try {
-      // Create the package to be worked on
-      wordMLPackage = WordprocessingMLPackage.createPackage();
-    } catch (InvalidFormatException e) {
-      e.printStackTrace();
-    }
-  }
-
-  /**
-   * the constructor method that enable to hold the name of the file to be created
-   *
-   * @param name the name of the new file
-   */
-  public WordManipulator(String name) {
-    this();
-    this.nameFile = name;
-  }
+  private ArrayList<String> paragraphs = new ArrayList();
 
   /**
    * Add the text that belongs to an observable list of titledpanes to the paragraph of
@@ -46,30 +35,91 @@ public class WordManipulator {
    * @param l the observablelist of titledpanes
    */
   public void addItems(ObservableList<TitledPane> l) {
-    //el cuerpo principal del documento
-    MainDocumentPart mdp = wordMLPackage.getMainDocumentPart();
     for (TitledPane tp : l) {
       TitledPaneWithCtrl tpCtrl = (TitledPaneWithCtrl) tp;
       for (int i = 0; i < Opciones.jumpsSplitLine; i++)
-        mdp.addParagraphOfText("");
-      mdp.addParagraphOfText(tpCtrl.getController().getData());
+        paragraphs.add("");
+      paragraphs.add(tpCtrl.getController().getData());
     }
     saveFile();
   }
 
-  public void saveFile() {
-    FileChooser fc = new FileChooser();//selector de archivos
+  private void saveFile() {
+    //selector de archivos
+    FileChooser fc = new FileChooser();
+
     //formateador del nombre de archivo
     DateTimeFormatter format = DateTimeFormatter.ofPattern("uuuuMMddHHmmss");
+
     //agregar el nombre del archivo
     fc.setInitialFileName(ZonedDateTime.now().format(format));
-    //agregar el tipo de archivo
-    fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Documento Word", "*.docx"));
+
+    //Agregar los tipos de archivo
+    final FileChooser.ExtensionFilter doc = new FileChooser.ExtensionFilter("Documento .doc", "*.doc");
+    final FileChooser.ExtensionFilter docx = new FileChooser.ExtensionFilter("Documento .docx", "*.docx");
+
+    //Agregar las extensiones disponibles para los distintos procesos
+    fc.getExtensionFilters().add(doc);
+    fc.getExtensionFilters().add(docx);
+
+    //the file where the information will be saved
+    File toSave = fc.showSaveDialog(null);
+
+    //se creara el tipo de archivo segun la eleccion del usuario
+    if (fc.getSelectedExtensionFilter() == doc) {
+      saveDoc(toSave);
+    } else if (fc.getSelectedExtensionFilter() == docx) {
+      saveDocx(toSave);
+    }
+  }
+
+  /**
+   * Method to save the file by parameters in doc format
+   *
+   * @param toSave The file where the information will be saved
+   */
+  private void saveDoc(File toSave) {
     try {
-      //guardar el word en el dialogo de archivo
-      wordMLPackage.save(fc.showSaveDialog(null));
+      POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream("down/empty.doc"));
+      HWPFDocument doc = new HWPFDocument(fs);
+      Range range = doc.getRange();
+      Paragraph parContainer = range.insertAfter(new ParagraphProperties(), 0);
+      for (String para : paragraphs) {
+        parContainer.setSpacingAfter(200);
+        parContainer.insertAfter(para);
+        parContainer = range.insertAfter(new ParagraphProperties(), 0);
+      }
+      FileOutputStream fos = new FileOutputStream(toSave);
+      doc.write(fos);
+      fos.close();
     } catch (Exception e) {
       Logger.getGlobal().log(Level.SEVERE, e.getMessage() + "\n" + e.getStackTrace());
     }
   }
+
+  /**
+   * Method to save the file by parameters in docx format
+   *
+   * @param toSave The file where the information will be saved
+   */
+  private void saveDocx(File toSave) {
+    try {
+      //el documento
+      WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.createPackage();
+
+      //el cuerpo principal del documento
+      MainDocumentPart mdp = wordMLPackage.getMainDocumentPart();
+
+      //se agregan las lineas
+      for (String paragraph : paragraphs) {
+        mdp.addParagraphOfText(paragraph);
+      }
+
+      //guardar el word en el dialogo de archivo
+      wordMLPackage.save(toSave);
+    } catch (Exception e) {
+      Logger.getGlobal().log(Level.SEVERE, e.getMessage() + "\n" + e.getStackTrace());
+    }
+  }
+
 }
