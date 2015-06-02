@@ -12,9 +12,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -55,12 +53,14 @@ public class WordManipulator {
     fc.setInitialFileName(ZonedDateTime.now().format(format));
 
     //Agregar los tipos de archivo
-    final FileChooser.ExtensionFilter doc = new FileChooser.ExtensionFilter("Documento .doc", "*.doc");
-    final FileChooser.ExtensionFilter docx = new FileChooser.ExtensionFilter("Documento .docx", "*.docx");
+    FileChooser.ExtensionFilter doc = new FileChooser.ExtensionFilter("Documento .doc", "*.doc");
+    FileChooser.ExtensionFilter docx = new FileChooser.ExtensionFilter("Documento .docx", "*.docx");
+    FileChooser.ExtensionFilter txt = new FileChooser.ExtensionFilter("Texto plano .txt", "*.txt");
 
     //Agregar las extensiones disponibles para los distintos procesos
     fc.getExtensionFilters().add(doc);
     fc.getExtensionFilters().add(docx);
+    fc.getExtensionFilters().add(txt);
 
     //the file where the information will be saved
     File toSave = fc.showSaveDialog(null);
@@ -70,6 +70,8 @@ public class WordManipulator {
       saveDoc(toSave);
     } else if (fc.getSelectedExtensionFilter() == docx) {
       saveDocx(toSave);
+    } else if (fc.getSelectedExtensionFilter() == txt) {
+      saveTxt(toSave);
     }
   }
 
@@ -122,4 +124,17 @@ public class WordManipulator {
     }
   }
 
+  private void saveTxt(File toSave) {
+    String alltxt = "";
+    for (String paragraph : paragraphs) {
+      alltxt += paragraph.isEmpty() ? System.lineSeparator() : paragraph;
+    }
+    try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+        new FileOutputStream(toSave), "utf-8"))) {
+      writer.write(alltxt.toString());
+      writer.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }
