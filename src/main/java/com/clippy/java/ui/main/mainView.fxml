@@ -1,46 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import com.clippy.java.utils.utils.ButtonJs?>
-<?import javafx.scene.layout.HBox?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clippy.java.ui.main.mainController">
-  <ToolBar fx:id="copyButtonList" prefHeight="40.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-    <ToggleButton fx:id="ClipbboardEnabled" mnemonicParsing="false" selected="true">
-      <tooltip>
-        <Tooltip text="Activa/Desactiva la funcion de escuchar el Portapapeles"/>
-      </tooltip>
-    </ToggleButton>
-    <Button fx:id="cleanAll" mnemonicParsing="false">
-      <tooltip>
-        <Tooltip text="Borra la lista de elementos"/>
-      </tooltip>
-      <graphic>
-        <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
-          <Image url="@clear.png"/>
-        </ImageView>
-      </graphic>
-    </Button>
-    <Separator prefWidth="5"/>
-    <Button fx:id="exportWordBtn" mnemonicParsing="false">
-      <tooltip>
-        <Tooltip text="Exportar los textos a un archivo word"/>
-      </tooltip>
-      <graphic>
-        <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
-          <Image url="@word.png"/>
-        </ImageView>
-      </graphic>
-    </Button>
-    <Separator prefWidth="5"/>
-  </ToolBar>
-  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-    <Accordion fx:id="parentOfRepeats">
-      <panes>
-      </panes>
-    </Accordion>
-  </ScrollPane>
+  <children>
+    <ToolBar fx:id="copyButtonList" prefHeight="40.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+      <items>
+        <ToggleButton fx:id="ClipbboardEnabled" mnemonicParsing="false" selected="true">
+          <tooltip>
+            <Tooltip text="Activa/Desactiva la funcion de escuchar el Portapapeles"/>
+          </tooltip>
+        </ToggleButton>
+        <Button fx:id="cleanAll" mnemonicParsing="false">
+          <tooltip>
+            <Tooltip text="Borra la lista de elementos"/>
+          </tooltip>
+          <graphic>
+            <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@clear.png"/>
+              </image>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Separator prefWidth="5"/>
+        <Button fx:id="exportWordBtn" mnemonicParsing="false">
+          <tooltip>
+            <Tooltip text="Exportar los textos a un archivo"/>
+          </tooltip>
+          <graphic>
+            <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@word.png"/>
+              </image>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Separator prefWidth="5"/>
+      </items>
+    </ToolBar>
+    <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+      <content>
+        <Accordion fx:id="parentOfRepeats">
+          <panes>
+          </panes>
+        </Accordion>
+      </content>
+    </ScrollPane>
+  </children>
 </VBox>
