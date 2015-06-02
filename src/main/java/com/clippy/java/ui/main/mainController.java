@@ -1,7 +1,7 @@
 package com.clippy.java.ui.main;
 
-import com.clippy.java.model.Opciones;
 import com.clippy.java.model.FileExportCreator;
+import com.clippy.java.model.Opciones;
 import com.clippy.java.ui.main.partials.repeatedPaneController;
 import com.clippy.java.utils.utils.ButtonJs;
 import com.clippy.java.utils.utils.TitledPaneWithCtrl;
@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.controlsfx.control.NotificationPane;
 import org.reactfx.EventStreams;
 import org.reactfx.Subscription;
 
@@ -30,6 +31,7 @@ public class mainController {
   public ToggleButton ClipbboardEnabled;
   public Button cleanAll;
   public ToolBar copyButtonList;
+  public NotificationPane notificationPane;
 
   /**
    * Metodo que se ejecuta para inicializar la vista principal
@@ -85,8 +87,24 @@ public class mainController {
     Utils.clipBoardListener.clipboardStream.subscribe(cad -> {
       if (!cad.isEmpty()) {
         for (String porcion : cad.split("(\\n|\\t){" + Opciones.jumpsSplitLine + ",}")) {
-          if (!porcion.isEmpty())
+          if (!porcion.isEmpty()) {
             parentOfRepeats.getPanes().add(createTitledPane(porcion));
+            notificationPane.setText("Contenido del portapapeles agregado");
+            /*notificationPane.setOnShown(event -> {
+              Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                  try {
+                    Thread.sleep(3000);
+                  } catch (InterruptedException e) {
+                    Logger.getGlobal().log(Level.INFO, e.toString());
+                  }
+                  notificationPane.hide();
+                }
+              });
+            });*/
+            notificationPane.show("");
+          }
         }
       }
     });
