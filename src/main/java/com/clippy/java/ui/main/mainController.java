@@ -1,7 +1,7 @@
 package com.clippy.java.ui.main;
 
 import com.clippy.java.model.Opciones;
-import com.clippy.java.model.WordManipulator;
+import com.clippy.java.model.FileExportCreator;
 import com.clippy.java.ui.main.partials.repeatedPaneController;
 import com.clippy.java.utils.utils.ButtonJs;
 import com.clippy.java.utils.utils.TitledPaneWithCtrl;
@@ -75,7 +75,7 @@ public class mainController {
      */
     Subscription buttonToolBarSubs = EventStreams.eventsOf(exportWordBtn, ActionEvent.ACTION)
         .subscribe(evt -> {
-          WordManipulator wm = new WordManipulator();
+          FileExportCreator wm = new FileExportCreator();
           wm.addItems(parentOfRepeats.getPanes());
         });
 

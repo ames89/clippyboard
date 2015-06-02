@@ -16,15 +16,15 @@ import java.io.*;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by Angel on 08/04/2015.
+ * Class that allows to create the file that will have the information available on the observable list
  */
-public class WordManipulator {
-  private WordprocessingMLPackage wordMLPackage;
-  private ArrayList<String> paragraphs = new ArrayList();
+public class FileExportCreator {
+  private ArrayList<String> paragraphs = new ArrayList<>();
 
   /**
    * Add the text that belongs to an observable list of titledpanes to the paragraph of
@@ -95,7 +95,7 @@ public class WordManipulator {
       doc.write(fos);
       fos.close();
     } catch (Exception e) {
-      Logger.getGlobal().log(Level.SEVERE, e.getMessage() + "\n" + e.getStackTrace());
+      Logger.getGlobal().log(Level.SEVERE, e.getMessage() + "\n" + Arrays.toString(e.getStackTrace()));
     }
   }
 
@@ -112,15 +112,13 @@ public class WordManipulator {
       //el cuerpo principal del documento
       MainDocumentPart mdp = wordMLPackage.getMainDocumentPart();
 
-      //se agregan las lineas
-      for (String paragraph : paragraphs) {
-        mdp.addParagraphOfText(paragraph);
-      }
+      //se agregan las lineas del arreglo al documento docx
+      paragraphs.forEach(mdp::addParagraphOfText);
 
       //guardar el word en el dialogo de archivo
       wordMLPackage.save(toSave);
     } catch (Exception e) {
-      Logger.getGlobal().log(Level.SEVERE, e.getMessage() + "\n" + e.getStackTrace());
+      Logger.getGlobal().log(Level.SEVERE, e.getMessage() + "\n" + Arrays.toString(e.getStackTrace()));
     }
   }
 
@@ -131,7 +129,7 @@ public class WordManipulator {
     }
     try (Writer writer = new BufferedWriter(new OutputStreamWriter(
         new FileOutputStream(toSave), "utf-8"))) {
-      writer.write(alltxt.toString());
+      writer.write(alltxt);
       writer.close();
     } catch (IOException e) {
       e.printStackTrace();
