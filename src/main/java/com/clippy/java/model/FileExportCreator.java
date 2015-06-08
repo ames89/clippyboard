@@ -58,7 +58,8 @@ public class FileExportCreator {
     FileChooser.ExtensionFilter txt = new FileChooser.ExtensionFilter("Texto plano .txt", "*.txt");
 
     //Agregar las extensiones disponibles para los distintos procesos
-    fc.getExtensionFilters().add(doc);
+    //TODO reemplazar o arreglar el exportador a doc
+    //fc.getExtensionFilters().add(doc);
     fc.getExtensionFilters().add(docx);
     fc.getExtensionFilters().add(txt);
 
