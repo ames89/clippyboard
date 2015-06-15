@@ -33,11 +33,12 @@ public class FileExportCreator {
    * @param l the observablelist of titledpanes
    */
   public void addItems(ObservableList<TitledPane> l) {
+    TitledPaneWithCtrl tpCtrl = null;
     for (TitledPane tp : l) {
-      TitledPaneWithCtrl tpCtrl = (TitledPaneWithCtrl) tp;
+      tpCtrl = (TitledPaneWithCtrl) tp;
       for (int i = 0; i < Opciones.jumpsSplitLine; i++)
         paragraphs.add("");
-      paragraphs.add(tpCtrl.getController().getData());
+      paragraphs.addAll(Arrays.asList(tpCtrl.getController().getData().split("\\n")));
     }
     saveFile();
   }

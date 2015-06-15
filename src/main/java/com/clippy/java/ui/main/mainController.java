@@ -84,7 +84,7 @@ public class mainController {
      */
     Utils.clipBoardListener.clipboardStream.subscribe(cad -> {
       if (!cad.isEmpty()) {
-        for (String porcion : cad.split("(\\n|\\t){" + Opciones.jumpsSplitLine + ",}")) {
+        for (String porcion : cad.split("(\\n){" + Opciones.jumpsSplitLine + ",}")) {
           if (!porcion.isEmpty())
             parentOfRepeats.getPanes().add(createTitledPane(porcion));
         }
